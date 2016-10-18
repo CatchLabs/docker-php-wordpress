@@ -29,6 +29,7 @@ RUN mkdir -p /var/www/html && chown -R www-data: /var/www/html
 VOLUME /var/www/html
 
 COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 
 EXPOSE 9000
