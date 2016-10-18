@@ -5,7 +5,7 @@ FROM php:5.6-fpm
 RUN sed -i 's/httpredir.debian.org/mirrors.aliyun.com/' /etc/apt/sources.list
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y php5 libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
 	&& docker-php-ext-install gd mysqli opcache
 
@@ -21,12 +21,8 @@ RUN { \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # set upload size
-RUN sed -i 's/post_max_size = 8M/post_max_size = 100M/' /etc/php5/fpm/php.ini
-RUN sed -i 's/upload_max_filesize = 100M/upload_max_filesize= 100M/' /etc/php5/fpm/php.ini
-
-# set listen port
-RUN sed -i 's/^listen =/;listen =/' /etc/php5/fpm/pool.d/www.conf
-RUN echo "listen = 127.0.0.1:9000" >> /etc/php5/fpm/pool.d/www.conf
+RUN sed -i 's/post_max_size = 8M/post_max_size = 100M/' /usr/local/etc/php/php.ini
+RUN sed -i 's/upload_max_filesize = 100M/upload_max_filesize= 100M/' /usr/local/etc/php/php.ini
 	
 RUN mkdir -p /var/www/html && chown -R www-data: /var/www/html
 VOLUME /var/www/html
