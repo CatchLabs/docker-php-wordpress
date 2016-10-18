@@ -1,6 +1,9 @@
 # mainly from: https://github.com/docker-library/wordpress/blob/master/php5.6/fpm/Dockerfile
 FROM php:5.6-fpm
 
+# Use apt mirror server in china
+RUN sed -i 's/httpredir.debian.org/ftp.cn.debian.org/' /etc/apt/sources.list
+
 # install the PHP extensions we need
 RUN apt-get update && apt-get install -y php5 libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
