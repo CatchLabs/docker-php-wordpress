@@ -20,9 +20,8 @@ RUN { \
 		echo 'opcache.enable_cli=1'; \
 	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
-# set upload size
-RUN sed -i 's/post_max_size = 8M/post_max_size = 100M/' /usr/local/etc/php/conf.d/php.ini
-RUN sed -i 's/upload_max_filesize = 100M/upload_max_filesize= 100M/' /usr/local/etc/php/conf.d/php.ini
+# copy php.ini
+COPY php.ini /usr/local/etc/php/php.ini
 	
 RUN mkdir -p /var/www/html && chown -R www-data: /var/www/html
 VOLUME /var/www/html
