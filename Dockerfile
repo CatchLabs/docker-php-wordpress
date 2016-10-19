@@ -31,7 +31,4 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 
 EXPOSE 9000
-
-# ENTRYPOINT resets CMD
-ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["php-fpm"]
